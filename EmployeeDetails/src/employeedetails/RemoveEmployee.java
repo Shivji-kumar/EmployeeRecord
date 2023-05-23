@@ -1,3 +1,4 @@
+
 package employeedetails;
 
 import java.awt.Choice;
@@ -8,31 +9,32 @@ import java.sql.*;
 import java.awt.event.*;
 
 
-
 public class RemoveEmployee extends JFrame implements ActionListener{
-    Choice cempid;
+    Choice cempId;
     JButton delete,back;
+    
     RemoveEmployee(){
-        
         getContentPane().setBackground(Color.WHITE);
-        setLayout(null);
         
+        setLayout(null);
         JLabel labelempid=new JLabel("Employee id");
         labelempid.setBounds(50,50,100,30);
-        
         add(labelempid);
         
-        cempid=new Choice();
-        cempid.setBounds(200,50,150,30);
-        add(cempid);
+        cempId=new Choice();
+        cempId.setBounds(100,50,200,30);
+        add(cempId);
         
         try{
             Conn c=new Conn();
             String query="select *from employee";
             ResultSet rs=c.s.executeQuery(query);
             while(rs.next()){
-                cempid.add(rs.getString("empid"));
+               cempId.add(rs.getString("empid"));
             }
+            
+            
+            
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -45,15 +47,15 @@ public class RemoveEmployee extends JFrame implements ActionListener{
         lblname.setBounds(200,100,100,30);
         add(lblname);
         
-        JLabel labelphone=new JLabel("Phonde No");
+        JLabel labelphone=new JLabel("phone");
         labelphone.setBounds(50,150,100,30);
         add(labelphone);
         
         JLabel lblphone=new JLabel();
-        lblphone.setBounds(50,150,100,30);
+        lblphone.setBounds(200,150,100,30);
         add(lblphone);
         
-        JLabel labelemail=new JLabel("Email Id");
+        JLabel labelemail=new JLabel("Email");
         labelemail.setBounds(50,200,100,30);
         add(labelemail);
         
@@ -61,47 +63,51 @@ public class RemoveEmployee extends JFrame implements ActionListener{
         lblemail.setBounds(200,200,100,30);
         add(lblemail);
         
-         try{
+        try{
             Conn c=new Conn();
-            String query="select *from employee where empid=cempid.getSelectItem()";
+            String query="select *from employee where empid= '"+cempId.getSelectedItem()+"'";
             ResultSet rs=c.s.executeQuery(query);
             while(rs.next()){
-                cempid.add(rs.getString("empid"));
-                lblname.setText(rs.getString("name"));
-                lblname.setText(rs.getString("phone"));
-                lblname.setText(rs.getString("email"));
+               lblname.setText(rs.getString("name"));
+               lblphone.setText(rs.getString("phone"));
+               lblemail.setText(rs.getString("email"));
+               
             }
+            
+            
+            
         }catch(Exception e){
             e.printStackTrace();
         }
-         cempid.addItemListener(new ItemListener(){
-        public void itemStateChanged(itemEvent ie){
-            try{
-            Conn c=new Conn();
-            String query="select *from employee where empid=cempid.getSelectItem()";
-            ResultSet rs=c.s.executeQuery(query);
-            while(rs.next()){
-                cempid.add(rs.getString("empid"));
-                lblname.setText(rs.getString("name"));
-                lblname.setText(rs.getString("phone"));
-                lblname.setText(rs.getString("email"));
+        cempId.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent ie){
+                try{
+                    Conn c=new Conn();
+                    String query="select *from employee where empid= '"+cempId.getSelectedItem()+"'";
+                    ResultSet rs=c.s.executeQuery(query);
+                    while(rs.next()){
+                       lblname.setText(rs.getString("name"));
+                       lblphone.setText(rs.getString("phone"));
+                       lblemail.setText(rs.getString("email"));
+
+                    }
+                   }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        }
-         });
-         
-        delete =new JButton("Delete");
-        delete.setBounds(220,300,100,30);
+            
+        });
+        
+        delete=new JButton("Delete");
+        delete.setBounds(80,300,100,30);
         delete.setBackground(Color.BLACK);
         delete.setForeground(Color.WHITE);
         delete.addActionListener(this);
         add(delete);
         
-        back =new JButton("Delete");
-        back.setBounds(240,300,100,30);
-        back.setBackground(Color.BLUE);
+        back=new JButton("Back");
+        back.setBounds(200,300,100,30);
+        back.setBackground(Color.BLACK);
         back.setForeground(Color.WHITE);
         back.addActionListener(this);
         add(back);
@@ -110,35 +116,36 @@ public class RemoveEmployee extends JFrame implements ActionListener{
         Image i2=i1.getImage().getScaledInstance(600, 400, Image.SCALE_DEFAULT);
         ImageIcon i3=new ImageIcon(i2);
         JLabel image=new JLabel(i3);
-        image.setBounds(350,0,600,400);
+        image.setBounds(350,0,600,350);
         
         add(image);
         
         setSize(1000,400);
         setLocation(300,150);
         setVisible(true);
+        
     }
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource()==delete){
             try{
                 Conn c=new Conn();
-                String query="delete from Employee where empid=empid.getSelectedItem()";
-                c.s.executeQuery(query);
-                JOptionPane.showMessageDialog(null,"Employee Information Deleted Sucessfully");
+                String query="delete from employee where empid = '"+cempId.getSelectedItem()+"'";
+                c.s.executeUpdate(query);
+                JOptionPane.showMessageDialog(null,"Employee deleted Succefully");
                 setVisible(false);
-                new Home();f
+                new Home();
             }catch(Exception e){
                 e.printStackTrace();
             }
-            
         }else{
             setVisible(false);
             new Home();
-            
         }
     }
-    public static void main(String [] args){
-        new RemoveEmployee();
-    }
+    
+//    public static void main(String [] args){
+//        new RemoveEmployee();
+//        
+//    }
     
 }

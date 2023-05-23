@@ -8,7 +8,7 @@ import java.awt.event.*;
 
 
 public class Home extends JFrame implements ActionListener{
-    JButton view,update,add,remove;
+    JButton view,update,add,remove,exit;
     
     Home(){
         setLayout(null);
@@ -44,6 +44,11 @@ public class Home extends JFrame implements ActionListener{
         remove.addActionListener(this);
         image.add(remove);
         
+        exit=new JButton("Exit");
+        exit.setBounds(740,200,150,40);
+        exit.addActionListener(this);
+        image.add(exit);
+        
         setSize(1120,630);
         setLocation(250,100);
         setVisible(true);
@@ -63,15 +68,17 @@ public class Home extends JFrame implements ActionListener{
             setVisible(false);
             new ViewEmployee();
             
-        }else{
+        }else if(ae.getSource()==remove){
             setVisible(false);
-            new RemoveEmployee();
+            new RemoveEmployee();   
+    }else{
+            setVisible(false);
             
-        
-    }
+        }
         
     }
     public static void main(String [] args){
+        new Splash();
         new Home();
         
     }

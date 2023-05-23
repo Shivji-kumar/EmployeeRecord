@@ -9,9 +9,9 @@ import java.awt.event.*;
 
 public class UpdateEmployee extends JFrame implements ActionListener{
     
-    JTextField tfeducation,tfname,tffname,tsalary,taddress,tphone,temail,tdest,tadhar;
+    JTextField tfeducation,tname,tfname,tdob,tsalary,taddress,tphone,temail,tdest,lblaadhar;
     
-    JLabel labeleid;
+    JLabel labelempid;
     JButton add,back;
     String empid;
   
@@ -32,27 +32,27 @@ public class UpdateEmployee extends JFrame implements ActionListener{
         labelname.setFont(new Font("serif",Font.PLAIN,20));
         add(labelname);
         
-        JLabel lblname=new JLabel();
-        lblname.setBounds(200,150,150,30);
-        add(lblname);
+        JLabel tname=new JLabel();
+        tname.setBounds(200,150,150,30);
+        add(tname);
         
         JLabel labelfname=new JLabel("Father's Name");
         labelfname.setBounds(400,150,150,30);
         labelfname.setFont(new Font("serif",Font.PLAIN,20));
         add(labelfname);
         
-         tffname=new JTextField();
-        tffname.setBounds(600,150,150,30);
-        add(tffname);
+         tfname=new JTextField();
+        tfname.setBounds(600,150,150,30);
+        add(tfname);
         
         JLabel labeldob=new JLabel("Date of Birth");
         labeldob.setBounds(50,200,150,30);
         labeldob.setFont(new Font("serif",Font.PLAIN,20));
         add(labeldob);
         
-         JLabel lbldob=new JLabel();
-        lbldob.setBounds(200,200,150,30);
-        add(lbldob);
+         JLabel tdob=new JLabel();
+        tdob.setBounds(200,200,150,30);
+        add(tdob);
         
         JLabel labelsalary=new JLabel("Employee Salary");
         labelsalary.setBounds(400,200,150,30);
@@ -124,27 +124,28 @@ public class UpdateEmployee extends JFrame implements ActionListener{
         labelid.setFont(new Font("serif",Font.PLAIN,20));
         add(labelid);
         
-         labeleid=new JLabel();
-        labeleid.setBounds(200,400,150,30);
-        labeleid.setFont(new Font("serif",Font.PLAIN,20));
-        add(labeleid);
+         labelempid=new JLabel();
+        labelempid.setBounds(200,400,150,30);
+        labelempid.setFont(new Font("serif",Font.PLAIN,20));
+        add(labelempid);
         
         try{
             Conn c=new Conn();
-            String query="select *from emlpoyee where empid='"+empid+"'";
+            String query="select *from employee where empid='"+empid+"'";
             ResultSet rs=c.s.executeQuery(query);
             while(rs.next()){
-                lblname.setText(rs.getString("name"));
-                tffname.setText(rs.getString("fname"));
-                labeldob.setText(rs.getString("dob"));
-                taddress.setText(rs.getString("address"));
+                tname.setText(rs.getString("name"));
+                tfname.setText(rs.getString("fname"));
+                tdob.setText(rs.getString("dob"));
                 tsalary.setText(rs.getString("salary"));
+                taddress.setText(rs.getString("address"));
                 tphone.setText(rs.getString("phone"));
                 temail.setText(rs.getString("email"));
                 tfeducation.setText(rs.getString("education"));
-                tadhar.setText(rs.getString("adhaar"));
-                labeleid.setText(rs.getString("empid"));
                 tdest.setText(rs.getString("designation"));
+                lblaadhar.setText(rs.getString("adhaar"));
+                labelempid.setText(rs.getString("empid"));
+                
             }
             
         }catch(Exception e){
@@ -170,8 +171,7 @@ public class UpdateEmployee extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource()==add){
           
-          String fname=tffname.getText();
-          
+          String fname=tfname.getText();
           String salary=tsalary.getText();
           String address=taddress.getText();
           String phone=tphone.getText();
@@ -181,13 +181,8 @@ public class UpdateEmployee extends JFrame implements ActionListener{
                             
             try{
                 Conn con=new Conn();
-               
-                //String query="insert into employee values("+name+","+fname+","+dob+","+salary+","+address+","+phone+","+email+","+educat+","+destg+","+aadhar+","+empid+",)";
-               String query="update employee set fname= fname, salary= salary, address=address, phone= phone, email= email, education= education,designation=designation where empid= empid)";
-               //+"values(?,?,?,?,?,?,?,?,?,?,?)";
-                //String sql = " insert into users (first_name, last_name, date_created, is_admin, num_points)"
-   // + " values (?, ?, ?, ?, ?)";
-               // String query = "Select * From login Where username= username and password= password";
+               String query="update employee set fname= '"+fname+"', salary= '"+salary+"', address= '"+address+"', phone= '"+phone+"', email= '"+email+"', education= '"+education+"',designation= '"+designation+"' where empid= '"+empid+"'";
+              
                 con.s.executeUpdate(query);
                 JOptionPane.showMessageDialog(null,"Details Updated Successfully");
                 setVisible(false);
@@ -205,9 +200,9 @@ public class UpdateEmployee extends JFrame implements ActionListener{
     }
     
 
-    public static void main(String [] args){
-        new UpdateEmployee("");
-    }
+//    public static void main(String [] args){
+//        new UpdateEmployee("");
+//    }
     
 }
         

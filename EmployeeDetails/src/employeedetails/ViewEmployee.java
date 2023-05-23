@@ -25,7 +25,7 @@ public class ViewEmployee extends JFrame implements ActionListener{
         try{
             Conn c=new Conn();
             ResultSet rs=c.s.executeQuery("select *from employee");
-            
+           
             
             while(rs.next()){
                 cemployeeid.add(rs.getString("empid"));
@@ -36,18 +36,13 @@ public class ViewEmployee extends JFrame implements ActionListener{
             e.printStackTrace();
         }
         
-        
         table=new JTable();
         
         try{
             Conn c=new Conn();
             ResultSet rs=c.s.executeQuery("select *from employee");
             table.setModel(DbUtils.resultSetToTableModel(rs));    
-            
-            while(rs.next()){
-                cemployeeid.add(rs.getString("empid"));
-            }
-            
+                    
             
         }catch(Exception e){
             e.printStackTrace();
@@ -116,10 +111,10 @@ public class ViewEmployee extends JFrame implements ActionListener{
         }
     }
     
-    public static void main(String [] args){
-        new ViewEmployee();
-        
-    }
+//    public static void main(String [] args){
+//        new ViewEmployee();
+//        
+//    }
   
     
 }
