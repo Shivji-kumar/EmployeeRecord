@@ -161,13 +161,9 @@ public class AddEmployee extends JFrame implements ActionListener{
                   
             try{
                 Conn con=new Conn();
+             
+               String query="insert into employee(name,fname,dob,salary,address,phone,email,education,designation,adhaar,empid) values('"+name+"','"+fname+"','"+dob+"','"+salary+"','"+address+"','"+phone+"','"+email+"','"+education+"','"+designation+"','"+adhaar+"','"+empid+"')";
                
-                //String query="insert into employee values("+name+","+fname+","+dob+","+salary+","+address+","+phone+","+email+","+educat+","+destg+","+aadhar+","+empid+",)";
-               String query="insert into employee values(name,fname,dob,salary,address,phone,email,education,designation,adhaar,empid)";
-               //+"values(?,?,?,?,?,?,?,?,?,?,?)";
-                //String sql = " insert into users (first_name, last_name, date_created, is_admin, num_points)"
-   // + " values (?, ?, ?, ?, ?)";
-               // String query = "Select * From login Where username= username and password= password";
                 con.s.executeUpdate(query);
                 JOptionPane.showMessageDialog(null,"Details Added Successfully");
                 setVisible(false);
@@ -185,9 +181,9 @@ public class AddEmployee extends JFrame implements ActionListener{
     }
     
 
-    public static void main(String [] args){
-        new AddEmployee();
-    }
+//    public static void main(String [] args){
+//        new AddEmployee();
+//    }
     
 }
         

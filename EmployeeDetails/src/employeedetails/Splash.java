@@ -64,8 +64,8 @@ public class Splash extends JFrame implements ActionListener{
         
     }
     
-    public static void main(String [] args){
-        new Splash();
-    }
+//    public static void main(String [] args){
+//        new Splash();
+//    }
     
 }
